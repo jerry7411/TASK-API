@@ -1,0 +1,27 @@
+service: task-api
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  environment:
+    API_TOKEN: ${env:API_TOKEN}
+
+plugins:
+  - serverless-offline
+
+functions:
+  api:
+    handler: dist/src/router.handler
+    events:
+      - httpApi:
+          path: /health
+          method: GET
+      - httpApi:
+          path: /tasks
+          method: POST
+      - httpApi:
+          path: /tasks
+          method: GET
+      - httpApi:
+          path: /tasks/{id}
+          method: PATCH

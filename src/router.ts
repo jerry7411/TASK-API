@@ -2,22 +2,29 @@ import { health } from "./handlers/health";
 import { createTask, getTasks, updateTask } from "./handlers/task";
 import { json } from "./libs/response";
 
-export const handler = async (event: any) => {
-  const { httpMethod, path } = event;
+const getMethod = (event: any) =>
+  event.httpMethod || event.requestContext?.http?.method;
 
-  if (httpMethod === "GET" && path === "/health") {
+const getPath = (event: any) =>
+  event.path || event.rawPath;
+
+export const handler = async (event: any) => {
+  const method = getMethod(event)
+  const path = getPath(event)
+
+  if (method === "GET" && path === "/health") {
     return health();
   }
 
-  if (httpMethod === "POST" && path === "/tasks") {
+  if (method === "POST" && path === "/tasks") {
     return createTask(event);
   }
 
-  if (httpMethod === "GET" && path === "/tasks") {
+  if (method === "GET" && path === "/tasks") {
     return getTasks(event);
   }
 
-  if (httpMethod === "PATCH" && path.startsWith("/tasks/")) {
+  if (method === "PATCH" && path.startsWith("/tasks/")) {
     const id = path.split("/")[2];
     event.pathParameters = { id };
     return updateTask(event);
