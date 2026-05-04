@@ -27,8 +27,14 @@ set API_TOKEN=secret
 
 ### 3. Run locally
 
+For express
 ```bash
 npm run dev
+```
+Or
+For serverless
+```bash
+npm run offline
 ```
 
 Server will start at:
