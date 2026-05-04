@@ -43,6 +43,12 @@ Server will start at:
 http://localhost:3000
 ```
 
+### 4. Run Unit Test
+
+```
+npm run test
+```
+
 ---
 
 ## 🧪 Example curl commands
@@ -106,8 +112,6 @@ API_TOKEN
 
 * In-memory storage only (data resets when server restarts)
 * Single static API token for authentication
-* No pagination required for task listing
-* No concurrency handling (not required for this scope)
 * Task IDs are generated using `crypto.randomUUID()`
 
 ---
@@ -117,7 +121,7 @@ API_TOKEN
 ```
 src/
   handlers/     # Lambda-style handlers
-  lib/          # utilities (auth, store, response)
+  libs/          # utilities (auth, store, response)
   router.ts     # route dispatcher
   server.ts     # local Express server (for testing)
 ```
